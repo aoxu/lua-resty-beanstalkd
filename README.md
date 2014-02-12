@@ -19,6 +19,8 @@ Description
 ===========
 
 This library requires an nginx, the [ngx_lua module](http://wiki.nginx.org/HttpLuaModule)
+support beanstalk commands:
+use, put, watch, reserve, delete, release, bury, kick, peek, stats-tube
 
 Synopsis
 ========
@@ -130,6 +132,16 @@ server {
                 ngx.say("delete failed, id:", id, ok, err)
             end
 
+            -- stats tube
+            local stats, err = bean:stats_tube("smallfish")
+            if ok then
+                -- stats is YAML string, parse it by lua-yaml-module
+                -- see the links at the bottom
+                ngx.say("stats-tube ok, stats:", stats)
+            else
+                ngx.say("stats-tube failed, err:", err)
+            end
+
             -- put it into the connection pool of size 100,
             -- with 0 idle timeout
 
@@ -152,6 +164,7 @@ Copyright and License
 
 This module is licensed under the BSD license.
 
+Copyright (C) 2014, by Ao Xu (徐奥) <xatest@gmail.com>
 Copyright (C) 2012, by Chen "smallfish" Xiaoyu (陈小玉) <smallfish.xy@gmail.com>
 
 Portions of the code are from [lua-resty-memcached](https://github.com/agentzh/lua-resty-memcached) Copyright (C) 2012, by Zhang "agentzh" Yichun (章亦春) <agentzh@gmail.com>.
@@ -173,4 +186,5 @@ See Also
 * [lua-resty-memcached](https://github.com/agentzh/lua-resty-memcached)
 * [lua-resty-redis](https://github.com/agentzh/lua-resty-redis)
 * [lua-resty-mysql](https://github.com/agentzh/lua-resty-mysql)
+* [lua-yaml-module](https://github.com/aoxu/lua-yaml-module)
 
