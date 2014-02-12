@@ -219,6 +219,9 @@ end
 
 function _M.peek(self, id)
     local sock = self.sock
+    if not sock then
+        return nil, "not initialized"
+    end
     local cmd = {"peek", " ", id, "\r\n"}
     local bytes, err = sock:send(tabconcat(cmd))
     if not bytes then
@@ -232,6 +235,28 @@ function _M.peek(self, id)
     if id and size then -- remove \r\n
         local data, err = sock:receive(size+2)
         return id, strsub(data, 1, -3)
+    end
+    return false, line
+end
+
+function _M.stats_tube(self, tube)
+    local sock = self.sock
+    if not sock then
+        return nil, "not initialized"
+    end
+    local cmd = {"stats-tube", " ", tube, "\r\n"}
+    local bytes, err = sock:send(tabconcat(cmd))
+    if not bytes then
+        return nil, "failed to stats-tube, send data error: " .. err
+    end
+    local line, err = sock:receive()
+    if not line then
+        return nil, "failed to stats-tube, receive data error: " .. err
+    end
+    local size = strmatch(line, "^OK (%d+)$")
+    if size then -- remove \r\n
+        local data, err = sock:receive(size+2)
+        return strsub(data, 1, -3), nil
     end
     return false, line
 end
