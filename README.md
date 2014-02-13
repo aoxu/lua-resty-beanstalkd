@@ -157,7 +157,7 @@ server {
 Author
 ======
 
-Ao Xu (徐奥) <xatest@gmail.com>
+Ao Xu (徐奥) <xatest@gmail.com>  
 Chen "smallfish" Xiaoyu (陈小玉) <smallfish.xy@gmail.com>
 
 Copyright and License
@@ -165,7 +165,7 @@ Copyright and License
 
 This module is licensed under the BSD license.
 
-Copyright (C) 2014, by Ao Xu (徐奥) <xatest@gmail.com>
+Copyright (C) 2014, by Ao Xu (徐奥) <xatest@gmail.com>  
 Copyright (C) 2012, by Chen "smallfish" Xiaoyu (陈小玉) <smallfish.xy@gmail.com>
 
 Portions of the code are from [lua-resty-memcached](https://github.com/agentzh/lua-resty-memcached) Copyright (C) 2012, by Zhang "agentzh" Yichun (章亦春) <agentzh@gmail.com>.
