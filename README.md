@@ -157,6 +157,7 @@ server {
 Author
 ======
 
+Ao Xu (徐奥) <xatest@gmail.com>
 Chen "smallfish" Xiaoyu (陈小玉) <smallfish.xy@gmail.com>
 
 Copyright and License
