@@ -239,6 +239,28 @@ function _M.peek(self, id)
     return false, line
 end
 
+function _M.list_tubes(self)
+    local sock = self.sock
+    if not sock then
+        return nil, "not initialized"
+    end
+    local cmd = {"list-tubes", "\r\n"}
+    local bytes, err = sock:send(tabconcat(cmd))
+    if not bytes then
+        return nil, "failed to list-tubes, send data error: " .. err
+    end
+    local line, err = sock:receive()
+    if not line then
+        return nil, "failed to list-tubes, receive data error: " .. err
+    end
+    local size = strmatch(line, "^OK (%d+)$")
+    if size then -- remove \r\n
+        local data, err = sock:receive(size+2)
+        return strsub(data, 1, -3), nil
+    end
+    return false, line
+end
+
 function _M.stats_tube(self, tube)
     local sock = self.sock
     if not sock then

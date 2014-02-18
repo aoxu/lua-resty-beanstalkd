@@ -20,7 +20,7 @@ Description
 
 This library requires an nginx, the [ngx_lua module](http://wiki.nginx.org/HttpLuaModule)
 support beanstalk commands:
-use, put, watch, reserve, delete, release, bury, kick, peek, stats-tube
+use, put, watch, reserve, delete, release, bury, kick, peek, stats-tube, list-tubes
 
 Synopsis
 ========
@@ -140,6 +140,14 @@ server {
                 ngx.say("stats-tube ok, stats:", stats)
             else
                 ngx.say("stats-tube failed, err:", err)
+            end
+
+            -- list tubes
+            local tubes, err = bean:list_tubes()
+            if tubes then
+                ngx.say("list-tubes ok, tubes:", tubes)
+            else
+                ngx.say("list-tubes failed, err:", err)
             end
 
             -- put it into the connection pool of size 100,
